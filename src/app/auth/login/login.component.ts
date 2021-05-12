@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
 
   public loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: [ localStorage.getItem('email') || '', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     recordar: [false]
   });
@@ -31,7 +31,11 @@ export class LoginComponent implements OnInit {
     }
 
     this.usuarioService.login(this.loginForm.value).subscribe(resp => {
-      console.log(resp);
+      if(this.loginForm.get('recordar')?.value){
+        localStorage.setItem('email', this.loginForm.get('email')?.value);
+      }else{
+        localStorage.removeItem('email');
+      }
     }, error => {
       Swal.fire('', 'Usuario/Contraseña Incorrecto.', 'info')
     });
