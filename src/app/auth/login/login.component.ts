@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { UsuarioService } from '../../services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +11,31 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  public loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+    recordar: [false]
+  });
+
+  constructor(private router: Router, private fb: FormBuilder, private usuarioService: UsuarioService) { }
+
+  get getControl() {
+    return this.loginForm.controls;
+  }
 
   ngOnInit(): void {
   }
   login() {
-    this.router.navigateByUrl('/');
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.usuarioService.login(this.loginForm.value).subscribe(resp => {
+      console.log(resp);
+    }, error => {
+      Swal.fire('', 'Usuario/Contraseña Incorrecto.', 'info')
+    });
+    // console.log(this.loginForm.value);
   }
 
 }
