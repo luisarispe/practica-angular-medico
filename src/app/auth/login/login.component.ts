@@ -13,6 +13,8 @@ declare const gapi: any;
 })
 export class LoginComponent implements OnInit {
 
+  public auth2:any;
+
   public loginForm = this.fb.group({
     email: [localStorage.getItem('email') || '', [Validators.required, Validators.email]],
     password: ['', Validators.required],
@@ -44,15 +46,15 @@ export class LoginComponent implements OnInit {
     });
     // console.log(this.loginForm.value);
   }
-
-  onSuccess(googleUser: any) {
-    // console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    var id_token = googleUser.getAuthResponse().id_token;
-    console.log(id_token);
-  }
-  onFailure(error: any) {
-    console.log(error);
-  }
+  // var id_token = googleUser.getAuthResponse().id_token;
+  // onSuccess(googleUser: any) {
+  //   // console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    
+  //   console.log(id_token);
+  // }
+  // onFailure(error: any) {
+  //   console.log(error);
+  // }
 
   renderButton() {
     gapi.signin2.render('my-signin2', {
@@ -61,10 +63,29 @@ export class LoginComponent implements OnInit {
       'height': 50,
       'longtitle': true,
       'theme': 'dark',
-      'onsuccess': this.onSuccess,
-      'onfailure': this.onFailure
+      
     });
+    this.startApp();
   }
-
+  startApp(){
+    gapi.load('auth2', ()=>{
+      this.auth2 = gapi.auth2.init({
+        client_id: '889576422118-8rld2s5240mjm3u98sk7od8gkdue4h6m.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+      });
+      this.attachSignin(document.getElementById('my-signin2'));
+    });
+  };
+  attachSignin(element:any) {
+    this.auth2.attachClickHandler(element, {},
+        (googleUser:any) =>{
+          var id_token = googleUser.getAuthResponse().id_token;
+          this.usuarioService.loginSign(id_token).subscribe(resp=>{
+            console.log(resp);
+          });
+        }, function(error :any) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
 
 }
