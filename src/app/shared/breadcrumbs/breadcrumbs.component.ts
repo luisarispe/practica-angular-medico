@@ -15,7 +15,6 @@ export class BreadcrumbsComponent implements OnDestroy {
   public tituloSuvs$?: Subscription;
 
   constructor(private router: Router) {
-    console.log(2);
     this.tituloSuvs$ = this.getArgumentsRuta().
       subscribe(({ titulo }) => {
         this.titulo = titulo;

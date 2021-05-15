@@ -3,6 +3,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { UsuarioService } from '../../services/usuario.service';
 
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,18 +25,17 @@ export class RegisterComponent {
     validators: this.passwordsIguales()
   } as AbstractControlOptions);
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) { }
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService, private router: Router) { }
 
   crearUsuario() {
     this.formSumitted = true;
     console.log(this.registerForm);
     if (this.registerForm.invalid) {
-      return ;
+      return;
     }
-    this.usuarioService.crearUsuario(this.registerForm.value).subscribe(resp=>{
-      console.log('Usuario creado');
-      console.log(resp);
-    },(error=>{
+    this.usuarioService.crearUsuario(this.registerForm.value).subscribe(resp => {
+      this.router.navigateByUrl('/');
+    }, (error => {
       Swal.fire('', error.error.msg, 'info');
     }));
   }
