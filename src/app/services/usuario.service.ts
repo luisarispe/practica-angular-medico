@@ -6,6 +6,7 @@ import { LoginFrom } from '../interfaces/login-form.interface';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario.model';
 
 const base_url = environment.base_url;
 
@@ -17,6 +18,7 @@ declare const gapi: any;
 export class UsuarioService {
 
   public auth2: any;
+  public usuario?: Usuario;
 
   constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) {
     this.googleInit()
@@ -30,6 +32,17 @@ export class UsuarioService {
       }
     }).pipe(
       tap((resp: any) => {
+        const {email, google, nombre, role, img,uid,password} = resp.usuario;
+        this.usuario= new Usuario(
+          nombre,
+          email,
+          password,
+          img,
+          google,
+          role,
+          uid
+        );
+        console.log(this.usuario);
         localStorage.setItem('token', resp.token)
       }),
       map((resp: any) => true),
