@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { ChartsModule } from 'ng2-charts';
 
@@ -16,6 +16,7 @@ import { ComponentsModule } from '../components/components.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     AccountSettingsComponent,
     PromesasComponent,
     RxjsComponent,
+    PerfilComponent,
   ],
   exports: [
     ProgressComponent,
@@ -41,7 +43,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     RouterModule,
     FormsModule,
     ComponentsModule,
-    ChartsModule
+    ChartsModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }
