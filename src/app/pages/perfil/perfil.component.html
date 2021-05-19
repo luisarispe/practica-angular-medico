@@ -20,8 +20,7 @@
                         </div>
                     </div>
 
-                    <button [disabled]="perfilForm.invalid" type="submit"
-                        class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>
+                    <button [disabled]="perfilForm.invalid" type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>
                         Guardar Cambios</button>
                 </form>
             </div>
@@ -34,11 +33,11 @@
                 <h6 class="card-subtitle">Imagen del usuario</h6>
                 <img src="">
                 <br>
-                <input type="file">
+                <input type="file" (change)="cambiarImagen($event)">
                 <br>
                 <br>
 
-                <button type="button" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>
+                <button [disabled]="!imageSubir" (click)="subirImagen()" type="button" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>
                     Cambiar Imagen</button>
             </div>
         </div>
