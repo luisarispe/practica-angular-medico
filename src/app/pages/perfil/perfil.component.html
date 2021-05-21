@@ -16,11 +16,13 @@
                         <label for="exampleInputEmail1">Email address</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-email"></i></div>
-                            <input type="email" class="form-control" placeholder="Enter email" formControlName="email">
+                            <input type="email" class="form-control" placeholder="Enter email" formControlName="email"
+                                [readonly]="usuario?.google">
                         </div>
                     </div>
 
-                    <button [disabled]="perfilForm.invalid" type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>
+                    <button [disabled]="perfilForm.invalid" type="submit"
+                        class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>
                         Guardar Cambios</button>
                 </form>
             </div>
@@ -31,13 +33,21 @@
             <div class="card-body">
                 <h4 class="card-title">Avatar</h4>
                 <h6 class="card-subtitle">Imagen del usuario</h6>
-                <img src="">
+                <div class="text-center">
+                    <img *ngIf="!imgTemp" [src]="usuario?.imagenUrl" class="img-avatar">
+                    <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
+
+                </div>
                 <br>
+
                 <input type="file" (change)="cambiarImagen($event)">
+
+
                 <br>
                 <br>
 
-                <button [disabled]="!imageSubir" (click)="subirImagen()" type="button" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>
+                <button [disabled]="!imageSubir" (click)="subirImagen()" type="button"
+                    class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>
                     Cambiar Imagen</button>
             </div>
         </div>
