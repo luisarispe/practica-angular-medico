@@ -11,6 +11,10 @@ export class Usuario {
         public uid?: string
     ) { }
     get imagenUrl() {
+        if(!this.img){
+            return `${base_url}/upload/usuarios/no-image`;
+        }
+
         if (this.img?.includes('https')) {
             return this.img;
         }
