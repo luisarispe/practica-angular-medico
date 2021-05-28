@@ -142,5 +142,10 @@ export class UsuarioService {
       })
     )
   }
+  eliminandoUsuario(usuario:Usuario){
+
+    const url=`${base_url}/usuarios/${usuario.uid}`;
+    return this.http.delete<CargarUsuario>(url,this.headers);
+  }
 
 }
