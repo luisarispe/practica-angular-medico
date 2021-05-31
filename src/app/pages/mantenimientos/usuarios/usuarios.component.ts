@@ -75,5 +75,11 @@ export class UsuariosComponent implements OnInit {
       }
     })
   }
+  cambiarRole(usuario:Usuario){
+    console.log(usuario);
+    this.usuarioService.actualizarUsuario(usuario).subscribe(resp=>{
+      console.log(resp);
+    })
+  }
 
 }

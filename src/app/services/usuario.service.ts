@@ -147,5 +147,9 @@ export class UsuarioService {
     const url=`${base_url}/usuarios/${usuario.uid}`;
     return this.http.delete<CargarUsuario>(url,this.headers);
   }
+  actualizarUsuario(usuario: Usuario) {
+
+    return this.http.put(`${base_url}/usuarios/${usuario?.uid}`, usuario, this.headers);
+  }
 
 }
