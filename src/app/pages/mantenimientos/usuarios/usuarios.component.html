@@ -38,11 +38,12 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let usuario of usuarios">
-                                <td><img class="w100" [src]="usuario.imagenUrl"></td>
+                                <td><img class="w100 cursor" [src]="usuario.imagenUrl" (click)=abrirModal(usuario)></td>
                                 <td>{{usuario.email}}</td>
                                 <td>{{usuario.nombre}}</td>
                                 <td>
-                                    <select class="form-control" [(ngModel)]="usuario.role" (change)="cambiarRole(usuario)">
+                                    <select class="form-control" [(ngModel)]="usuario.role"
+                                        (change)="cambiarRole(usuario)">
                                         <option value="ADMIN_ROLE">Admin</option>
                                         <option value="USER_ROLE">User</option>
                                     </select>
@@ -53,7 +54,8 @@
                                 </td>
 
                                 <td class="text-nowrap text-center">
-                                    <a class="cursor" (click)="eliminarUsuario(usuario)" data-toggle="tooltip" data-original-title="Borrar"> <i class="fa fa-close text-danger"></i> </a>
+                                    <a class="cursor" (click)="eliminarUsuario(usuario)" data-toggle="tooltip"
+                                        data-original-title="Borrar"> <i class="fa fa-close text-danger"></i> </a>
                                 </td>
                             </tr>
                         </tbody>

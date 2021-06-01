@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModaImagenService } from 'src/app/services/moda-imagen.service';
 
 @Component({
   selector: 'app-modal-imagen',
@@ -7,14 +8,32 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class ModalImagenComponent implements OnInit {
-  public ocultarModal:boolean=false;
-  constructor() { }
+
+  public imageSubir?: File;
+  public imgTemp: any = null;
+  constructor(public modalImagenService: ModaImagenService) { }
 
   ngOnInit(): void {
   }
 
-  cerrarModal(){
-    this.ocultarModal=true;
+  cerrarModal() {
+    this.imgTemp = null
+    this.modalImagenService.cerrarModal();
+  }
+
+  cambiarImagen(event: any) {
+    this.imageSubir = event.currentTarget.files[0];
+
+    if (!event.currentTarget.files[0]) {
+      this.imgTemp = null;
+      return
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(event.currentTarget.files[0]);
+    reader.onload = () => {
+      this.imgTemp = reader.result;
+    }
+
   }
 
 }

@@ -3,6 +3,7 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from '../../../services/usuario.service';
 import { BusquedasService } from '../../../services/busquedas.service';
 import Swal from 'sweetalert2';
+import { ModaImagenService } from '../../../services/moda-imagen.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -17,7 +18,7 @@ export class UsuariosComponent implements OnInit {
   public desde: number = 0;
   public cargando: boolean = true;
 
-  constructor(private usuarioService: UsuarioService, private busquedaService: BusquedasService) { }
+  constructor(private usuarioService: UsuarioService, private busquedaService: BusquedasService, private modalImagenService: ModaImagenService) { }
 
   ngOnInit(): void {
     this.cargarUsuario();
@@ -51,9 +52,9 @@ export class UsuariosComponent implements OnInit {
       })
     }
   }
-  eliminarUsuario(usuario:Usuario){
+  eliminarUsuario(usuario: Usuario) {
 
-    if(usuario.uid==this.usuarioService.uid){
+    if (usuario.uid == this.usuarioService.uid) {
       Swal.fire('Error', 'No puede borrarse a si mismo');
       return;
     }
@@ -66,20 +67,24 @@ export class UsuariosComponent implements OnInit {
       confirmButtonText: 'Si, borrarlo!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.usuarioService.eliminandoUsuario(usuario).subscribe(resp=>{
+        this.usuarioService.eliminandoUsuario(usuario).subscribe(resp => {
           Swal.fire('Usuario borrado',
-          `${usuario.nombre} fue eliminado correctamente.`,
-          'success');
+            `${usuario.nombre} fue eliminado correctamente.`,
+            'success');
           this.cargarUsuario();
         });
       }
     })
   }
-  cambiarRole(usuario:Usuario){
+  cambiarRole(usuario: Usuario) {
     console.log(usuario);
-    this.usuarioService.actualizarUsuario(usuario).subscribe(resp=>{
+    this.usuarioService.actualizarUsuario(usuario).subscribe(resp => {
       console.log(resp);
     })
+  }
+  abrirModal(usuario: Usuario) {
+    console.log(usuario);
+    this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img);
   }
 
 }
