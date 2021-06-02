@@ -1,5 +1,4 @@
-import { stringify } from '@angular/compiler/src/util';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
 
 const base_url = environment.base_url;
@@ -12,6 +11,7 @@ export class ModaImagenService {
   public tipo?: 'usuarios' | 'medicos' | 'hospitales';
   public id?: string;
   public img?: string;
+  public nuevaImagen:EventEmitter<string>=new EventEmitter<string>();
 
   get ocultartModal() {
     return this._ocultarModal;

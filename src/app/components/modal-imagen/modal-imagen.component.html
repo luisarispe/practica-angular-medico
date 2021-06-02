@@ -1,12 +1,10 @@
 <div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="modalImagenService.ocultartModal">
-    <div id="myModal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        style="display: block;">
+    <div id="myModal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Cargar Imagen</h4>
-                    <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">×</button>
+                    <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <h3>Seleccione una imagen</h3>
@@ -20,9 +18,8 @@
                     <input type="file" (change)="cambiarImagen($event)">
                 </div>
                 <div class="modal-footer">
-                    <button (click)="cerrarModal()" type="button" class="btn btn-default waves-effect"
-                        data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Cargar Imagen</button>
+                    <button (click)="cerrarModal()" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button (click)="subirImagen()" type="button" class="btn btn-primary">Cargar Imagen</button>
                 </div>
             </div>
             <!-- /.modal-content -->
