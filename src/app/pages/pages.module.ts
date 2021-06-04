@@ -20,6 +20,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
     FormsModule,
     ComponentsModule,
     ChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
   ]
 })
 export class PagesModule { }
