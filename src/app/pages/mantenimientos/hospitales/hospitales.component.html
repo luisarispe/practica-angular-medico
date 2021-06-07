@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" #txtTermino (keyup)="buscar(txtTermino.value)">
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-right">
-                    <button class="btn btn-primary"><i class="fa fa-hospital-o"></i> Crear Hospital</button>
+                    <button (click)="abrirSweetAlert()" class="btn btn-primary"><i class="fa fa-hospital-o"></i> Crear Hospital</button>
                 </div>
                 <h4 class="card-title">Hospitales ({{hospitales.length}})</h4>
                 <h6 class="card-subtitle">Hospitales registrados en mi aplicación</h6>
@@ -39,7 +39,7 @@
                         <tbody>
                             <tr *ngFor="let hospital of hospitales">
                                 <td>
-                                    <img class="img-avatar cursor" [src]="hospital.img | imagen: 'hospitales'" [alt]="hospital.nombre">
+                                    <img (click)="abrirModal(hospital)" class="img-avatar cursor" [src]="hospital.img | imagen: 'hospitales'" [alt]="hospital.nombre">
                                     <!-- {{hospital.img | imagen: 'hospitales'}} -->
                                 </td>
                                 <td><input type="text" class="form-control" placeholder="Nombre de Hospital" [(ngModel)]="hospital.nombre"></td>
