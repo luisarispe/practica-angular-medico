@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Medico } from 'src/app/models/medico.model';
-import { MedicoService } from '../../../services/medico.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Hospital } from 'src/app/models/hospital.model';
+import { HospitalService } from '../../../services/hospital.service';
 
 @Component({
   selector: 'app-medico',
@@ -10,12 +11,27 @@ import { MedicoService } from '../../../services/medico.service';
 })
 export class MedicoComponent implements OnInit {
 
-
-
-  constructor(private medicoService: MedicoService) { }
+  public medicoForm!: FormGroup;
+  public hospitales: Hospital[] = [];
+  constructor(private fb: FormBuilder, private hospitalService: HospitalService) { }
 
   ngOnInit(): void {
+    this.medicoForm = this.fb.group({
+      nombre: ['Hernando', Validators.required],
+      hospital: ['', Validators.required]
+    })
+    this.cargarHospitales()
+  }
 
+  cargarHospitales() {
+    this.hospitalService.cargarHospitales().subscribe((hospitales: Hospital[]) => {
+      this.hospitales = hospitales;
+    })
+  }
+
+  guardarMedico() {
+
+    console.log(this.medicoForm.value);
   }
 
 

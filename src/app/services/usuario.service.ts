@@ -33,9 +33,9 @@ export class UsuarioService {
     return this.usuario?.uid || '';
   }
 
-  get headers(){
+  get headers() {
     return {
-      headers:{
+      headers: {
         'x-token': this.token
       }
     }
@@ -59,7 +59,6 @@ export class UsuarioService {
           role,
           uid
         );
-        console.log(this.usuario);
         localStorage.setItem('token', resp.token);
         return true;
       }),
@@ -127,25 +126,25 @@ export class UsuarioService {
     })
   }
 
-  cargarUsuario(desde:number=0){
+  cargarUsuario(desde: number = 0) {
 
-    const url=`${base_url}/usuarios?desde=${desde}`;
-    return this.http.get<CargarUsuario>(url,this.headers).pipe(
+    const url = `${base_url}/usuarios?desde=${desde}`;
+    return this.http.get<CargarUsuario>(url, this.headers).pipe(
       delay(1000),
-      map(resp=>{
-        const usuarios=resp.usuarios.map(
-          user=>new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid))
-          return {
-            total:resp.total,
-            usuarios
-          }
+      map(resp => {
+        const usuarios = resp.usuarios.map(
+          user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid))
+        return {
+          total: resp.total,
+          usuarios
+        }
       })
     )
   }
-  eliminandoUsuario(usuario:Usuario){
+  eliminandoUsuario(usuario: Usuario) {
 
-    const url=`${base_url}/usuarios/${usuario.uid}`;
-    return this.http.delete<CargarUsuario>(url,this.headers);
+    const url = `${base_url}/usuarios/${usuario.uid}`;
+    return this.http.delete<CargarUsuario>(url, this.headers);
   }
   actualizarUsuario(usuario: Usuario) {
 
