@@ -19,7 +19,7 @@ declare const gapi: any;
 export class UsuarioService {
 
   public auth2: any;
-  public usuario?: Usuario;
+  public usuario!: Usuario;
 
   constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) {
     this.googleInit()
@@ -31,6 +31,9 @@ export class UsuarioService {
 
   get uid(): string {
     return this.usuario?.uid || '';
+  }
+  get role():'ADMIN_ROLE' | 'USER_ROLE'{
+    return this.usuario.role!;
   }
 
   get headers() {
